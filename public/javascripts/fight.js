@@ -27,7 +27,7 @@ var TweetBox = React.createClass({
         var tweets = this.state.data;
         var newTweets = tweets.concat([tweet]);
 
-        if(newTweets.length > 15) {
+        if(newTweets.length > 20) {
             newTweets.splice(0, 1);
         }
 
@@ -47,7 +47,7 @@ var TweetBox = React.createClass({
     render: function() {
         return (
             <div>
-                <h1>Hello</h1>
+                <h1>Twitter</h1>
 
                 <TweetList data={this.state.data} />
             </div>
