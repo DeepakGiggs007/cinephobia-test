@@ -81,12 +81,18 @@ var T = new Twit({
 
 //Socket.io
 var io = require('socket.io').listen(server);
-var stream = T.stream('statuses/sample')
-
-var user_stream = T.get('statuses/user_timeline');
+var stream = T.stream('statuses/sample');
 
 io.sockets.on('connection', function (socket) {
-   user_stream.on('tweet', function(tweet) {
-     socket.emit('info', { tweet: tweet});
-   });
+
+  T.get('statuses/home_timeline', function(err, reply, response) {
+    console.log("******************"+reply.length);
+    for (var i in reply)
+      socket.emit('info', { tweet: reply[i]});
+  });
+
+ //  user_stream.on('tweet', function(tweet) {
+  //   socket.emit('info', { tweet: tweet});
+  // });
+
 });
