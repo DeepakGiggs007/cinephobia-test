@@ -5,7 +5,10 @@ var passport = require('passport')
 var User = require('./user.js')
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/hashtagfight');
+var mongodbURI = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || "mongodb://localhost/hashtagfight";
+console.log("******"+mongodbURI);
+
+mongoose.connect(mongodbURI);
 
 //passport
 module.exports = passport.use(new TwitterStrategy({
