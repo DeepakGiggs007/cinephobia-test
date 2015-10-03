@@ -83,8 +83,10 @@ var T = new Twit({
 var io = require('socket.io').listen(server);
 var stream = T.stream('statuses/sample')
 
+var user_stream = T.get('statuses/user_timeline');
+
 io.sockets.on('connection', function (socket) {
-   stream.on('tweet', function(tweet) {
+   user_stream.on('tweet', function(tweet) {
      socket.emit('info', { tweet: tweet});
    });
 });
