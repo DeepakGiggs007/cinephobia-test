@@ -85,11 +85,22 @@ var stream = T.stream('statuses/sample');
 
 io.sockets.on('connection', function (socket) {
 
-  T.get('statuses/home_timeline', function(err, reply, response) {
-    console.log("******************"+reply.length);
-    for (var i in reply)
-      socket.emit('info', { tweet: reply[i]});
-  });
+  callUserTimeLine();
+
+  function callUserTimeLine() {
+    T.get('statuses/home_timeline', function(err, reply, response) {
+        console.log("******************"+reply.length);
+        for (var i in reply)
+          socket.emit('info', { tweet: reply[i]});
+      });
+  }
+
+  setInterval(function() {
+    callUserTimeLine();
+    console.log("CALLED EVERY 1 Hour");
+  }, 60*60*1000);
+
+
 
  //  user_stream.on('tweet', function(tweet) {
   //   socket.emit('info', { tweet: tweet});
